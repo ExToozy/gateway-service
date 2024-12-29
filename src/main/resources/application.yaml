@@ -1,7 +1,7 @@
 cloud:
-  eureka-host: localhost
-  processing-service-url: http://localhost:8082
-  currency-service-url: http://localhost:8085
+  eureka-host: ${EUREKA_HOST}
+  processing-service-url: ${PROCESSING_URL}
+  currency-service-url: ${CURRENCY_URL}
 
 spring:
   application:
