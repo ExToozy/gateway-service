@@ -1,22 +1,27 @@
-cloud:
-  eureka-host: ${EUREKA_HOST}
-  processing-service-url: ${PROCESSING_URL}
-  currency-service-url: ${CURRENCY_URL}
-
 spring:
+  config:
+    import: optional:file:.env[.properties]
+
+  custom-cloud:
+    eureka-host: ${EUREKA_HOST}
+    processing-service-url: ${PROCESSING_URL}
+    currency-service-url: ${CURRENCY_URL}
+
   application:
     name: api-gateway-service
+
   cloud:
-    discovery:
-      enabled: true
     gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
       routes:
         - id: currency-rate-service
-          uri: ${cloud.currency-service-url}
+          uri: ${CURRENCY_URL}
           predicates:
             - Path=/api/v1/currency/**
         - id: exchange-processing-service-url
-          uri: ${cloud.processing-service-url}
+          uri: ${PROCESSING_URL}
           predicates:
             - Path=/api/v1/user/**, /api/v1/account/**
 
@@ -24,7 +29,8 @@ spring:
 server:
   port: 8080
 
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${cloud.eureka-host}:8761/eureka/
+      defaultZone: http://${EUREKA_HOST}:8761/eureka/
