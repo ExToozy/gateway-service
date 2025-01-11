@@ -10,8 +10,6 @@ import reactor.core.publisher.Mono;
 public class RequestLogger implements GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        System.out.println(exchange.getRequest().getPath());
-        System.out.println(exchange.getRequest().getMethod() + " " + exchange.getRequest().getPath());
         return chain.filter(exchange);
     }
 }
